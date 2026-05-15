@@ -1,1 +1,0 @@
-<?php return array('dependencies' => array('wp-blocks','wp-element','wp-i18n','wp-block-editor','wp-components','wp-data','wp-dom-ready'), 'version' => 'rild6');

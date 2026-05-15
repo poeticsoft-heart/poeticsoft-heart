@@ -1,35 +1,36 @@
 {
-    "$schema": "https://schemas.wp.org/trunk/block.json",
-    "apiVersion": 3,
-    "name": "poeticsoft-heart/blockbase",
-    "version": "1.0.1",
-    "title": "Block Base",
-    "category": "poeticsoft-heart-base",
-    "icon": "smiley",
-    "description": "Base block scaffolding with common attributes and controls.",
-    "attributes": {
-        "message": {
-            "type": "string",
-            "default": "Hello from Block Base!"
-        },
-        "showIcon": {
-            "type": "boolean",
-            "default": true
-        }
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "poeticsoft-heart/blockbase",
+  "title": "Blockbase",
+  "description": "Bloque blockbase para el ecosistema Poeticsoft Heart.",
+  "category": "poeticsoft-heart-base",
+  "icon": "admin-plugins",
+  "keywords": [],
+  "textdomain": "poeticsoft-heart",
+  "version": "0.0.0",
+  "supports": {},
+  "attributes": {
+    "blockId": {
+      "type": "string",
+      "default": ""
     },
-    "supports": {
-        "html": false,
-        "align": ["wide", "full"],
-        "color": {
-            "text": true,
-            "background": true,
-            "link": true
-        }
+    "refClientId": {
+      "type": "string",
+      "default": ""
+    },    
+    "message": {
+      "type": "string",
+      "default": ""
     },
-    "textdomain": "poeticsoft-heart",
-    "editorScript": "file:./build/edit.js",
-    "editorStyle": "file:./build/edit.css",
-    "viewScript": "file:./build/view.js",
-    "style": "file:./build/view.css",
-    "render": "file:./render.php"
+    "showIcon": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "editorScript": "file:./build/edit.js",
+  "editorStyle": "file:./build/edit.css",
+  "viewScript": "file:./build/view.js",
+  "viewStyle": "file:./build/view.css",
+  "render": "file:./render.php"
 }

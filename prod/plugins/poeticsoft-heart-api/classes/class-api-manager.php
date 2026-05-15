@@ -10,6 +10,7 @@ namespace Poeticsoft\Heart\API;
 use Poeticsoft\Heart\API\Endpoints\System_Endpoints;
 use Poeticsoft\Heart\API\Endpoints\Mail_Endpoints;
 use Poeticsoft\Heart\API\Endpoints\Content_Endpoints;
+use Poeticsoft\Heart\API\Endpoints\Voice_Endpoints;
 
 if ( ! defined( 'ABSPATH' ) ) {
         exit;
@@ -35,6 +36,7 @@ class API_Manager {
                         new System_Endpoints(),
                         new Mail_Endpoints(),
                         new Content_Endpoints(),
+                        new Voice_Endpoints(),
                 ];
 		foreach ( $controllers as $controller ) {
 			$controller->register_routes();

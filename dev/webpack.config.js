@@ -1,10 +1,11 @@
-require('dotenv').config();
+const dotenv = require('dotenv');
+const dotenvExpand = require('dotenv-expand');
+const env = dotenv.config();
+dotenvExpand.expand(env);
 
 const path = require('path')
+const fs = require('fs');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-
-const heartdir = process.env.DIR_HEART
-const pluginsdir = process.env.DIR_PLUGINS
 
 module.exports = env => { 
                                                     
@@ -20,20 +21,11 @@ module.exports = env => {
   */  
 
   const type = params[0]
-  const source = params[1]
+  const source = './src/' + params[1]
   const dest_public = params[2]
   const dest_dir = process.env[params[2]]
   const dest_name = `poeticsoft-heart-${params[3]}`
   const output = params[4]
-
-  const mode = 'dev'
-  const watch = 'si'
-
-  const destdir = path.join(dest_dir, dest_name, output)
-  const public = `/wp-content/${dest_public}/${dest_name}`
-  
-  let entry = {}
-  let externals = {}  
 
   const wpblockexternals = {
     '@wordpress/element': 'wp.element',
@@ -45,68 +37,88 @@ module.exports = env => {
     'react-dom': 'wp.element'
   }
 
+  const config = {
+    output: path.join(dest_dir, dest_name, output),
+    public: `/wp-content/${dest_public}/${dest_name}`,
+    cssfilename: '[name].css',
+    entry: {},
+    externals: {},
+    mode: 'dev',
+    watch: 'no',
+    alias: {
+      assets: path.join(dest_dir, dest_name, 'assets'), 
+      common: path.join(process.env.dev, 'src', 'common'),          
+      blocks: path.join(dest_dir, dest_name, 'blocks')
+    }
+  }
+
   switch (type) {
 
     case 'block':
-      
-      paths.output = destdir  + '/blocks/' + name + '/build'
 
-      entry = {
-        edit: './src/blocks/' + name + '/edit.js',
-        view: './src/blocks/' + name + '/view.js'
-      }
+      if(!fs.existsSync(config.output)) {
 
-      externals = wpblockexternals
-
-      break;
-
-    case 'ui':
-      
-      paths.output = destdir + '/ui/' + name 
-
-      entry = {
-        main: './src/ui/' + name + '/main.js'
-      }
-
-      if(
-        name == 'prompteditor'
-      ) {
-
-        externals = wpcompexternals
-      }
-
-      break;
-
-    case 'metabox':
-      
-      paths.output = destdir  + '/ui/metabox/' + name
-
-      entry = {
-        main: './src/metabox/' + name + '/main.js'
+        return console.log('Falta el directorio destino del blocl, usar dev/scripts/newblock.')
       }
       
-      externals = wpcompexternals
+      config.output = path.join(config.output, 'build')
+
+      config.entry = {
+        edit: source + '/edit.js',
+        view: source + '/view.js'
+      }
+
+      config.externals = wpblockexternals
+
+    // case 'ui':
       
-      break;
+    //   paths.output = destdir + '/ui/' + name 
+
+    //   entry = {
+    //     main: './src/ui/' + name + '/main.js'
+    //   }
+
+    //   if(
+    //     name == 'prompteditor'
+    //   ) {
+
+    //     externals = wpcompexternals
+    //   }
+
+    //   break;
+
+    // case 'metabox':
+      
+    //   paths.output = destdir  + '/ui/metabox/' + name
+
+    //   entry = {
+    //     main: './src/metabox/' + name + '/main.js'
+    //   }
+      
+    //   externals = wpcompexternals
+      
+    //   break;
 
     default:
 
       break
   }
 
-  const config = {
+  // console.log(config)
+
+  return {
     context: __dirname,
     stats: 'minimal',
-    watch: watch == 'si',
+    watch: config.watch == 'si',
     name: 'minimal',
-    entry: entry,
+    entry: config.entry,
     output: {
-      path: paths.output,
-      publicPath: paths.public,
+      path: config.output,
+      publicPath: config.public,
       filename: '[name].js'
     },
-    mode: mode == 'prod' ? 'production' : 'development',
-    devtool: mode == 'prod' ? false : 'source-map',
+    mode: config.mode == 'prod' ? 'production' : 'development',
+    devtool: config.mode == 'prod' ? false : 'source-map',
     module: {
       rules: [
         {
@@ -135,7 +147,10 @@ module.exports = env => {
               loader: 'css-loader'
             },
             {
-              loader: 'sass-loader'
+              loader: 'sass-loader',
+              options: {
+                api: "modern-compiler"
+              }
             }
           ]
         },
@@ -166,19 +181,13 @@ module.exports = env => {
     },
     plugins: [
       new MiniCssExtractPlugin({
-        filename: paths.cssfilename
+        filename: config.cssfilename
       })
     ],
     resolve: {
       extensions: ['.js'],
-      alias: {
-        assets: path.resolve(destdir + '/assets'),        
-        common: path.join(__dirname, 'src', 'common'),          
-        blocks: path.join(__dirname, themename, 'block')
-      }
+      alias: config.alias
     },
-    externals: externals
+    externals: config.externals
   }
-
-  return config
 }

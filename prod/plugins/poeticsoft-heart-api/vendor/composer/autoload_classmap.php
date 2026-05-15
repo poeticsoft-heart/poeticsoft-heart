@@ -12,4 +12,6 @@ return array(
     'Poeticsoft\\Heart\\API\\Endpoints\\Endpoint_Base' => $baseDir . '/classes/endpoints/class-endpoint-base.php',
     'Poeticsoft\\Heart\\API\\Endpoints\\Mail_Endpoints' => $baseDir . '/classes/endpoints/class-mail-endpoints.php',
     'Poeticsoft\\Heart\\API\\Endpoints\\System_Endpoints' => $baseDir . '/classes/endpoints/class-system-endpoints.php',
+    'Poeticsoft\\Heart\\API\\Endpoints\\Voice_Endpoints' => $baseDir . '/classes/endpoints/class-voice-endpoints.php',
+    'Poeticsoft\\Heart\\API\\Security\\Rate_Limiter' => $baseDir . '/classes/security/class-rate-limiter.php',
 );

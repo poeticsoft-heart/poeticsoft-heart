@@ -29,7 +29,7 @@ Ecosistema de WordPress compuesto por múltiples aplicaciones, bloques de Gutenb
 ### 3. Naming y Organización
 - Prefijo PHP: `psh_` o `PSH_`.
 - Slugs Bloques: `poeticsoft-heart/[nombrebloque]` (IMPORTANTE: El nombre del bloque **no debe contener guiones** para evitar problemas en las rutas de compilación. Ej: `blockbase`, `voiceinterface`).
-- Categoría Bloques: `poeticsoft-heartbase` ("Poeticsoft Heart Base").
+- Categoría Bloques: `poeticsoft-heart-base` ("Poeticsoft Heart Base").
 
 ### 4. Infraestructura
 - **Ruta WordPress:** `/var/www/poeticsoft`.
@@ -38,6 +38,7 @@ Ecosistema de WordPress compuesto por múltiples aplicaciones, bloques de Gutenb
 
 ### 5. Reglas de Interacción (AI Agent)
 - **Control de Bucles y Tokens:** Si una tarea requiere más de dos intentos fallidos para ser resuelta (bucles de compilación, errores de configuración, etc.), el agente debe detenerse inmediatamente, explicar el problema y esperar instrucciones del usuario. Esto es estrictamente para evitar el gasto innecesario de tokens y prevenir bucles incontrolados.
+- **Compilación Segura (Modo Watch):** Antes de ejecutar cualquier comando de compilación (`webpack`), el agente DEBE verificar que `dev/webpack.config.js` tenga configurado `watch: 'no'`. Si está en `'si'`, debe cambiarlo a `'no'` antes de proceder para evitar que el proceso se bloquee en la terminal.
 
 ## Flujo de Trabajo Maestro
 1. **Definir Estructura:** CPTs y lógica de conversión en `heart-content-architect`.

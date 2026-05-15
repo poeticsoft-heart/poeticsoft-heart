@@ -7,6 +7,8 @@
 
 namespace Poeticsoft\Heart\API\Endpoints;
 
+use Poeticsoft\Heart\API\Security\Rate_Limiter;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -70,5 +72,40 @@ abstract class Endpoint_Base {
 			],
 			$status
 		);
+	}
+
+	/**
+	 * Verifica si una petición pública es segura (Origen + Rate Limit).
+	 *
+	 * @param \WP_REST_Request $request      Objeto de la petición.
+	 * @param string           $action       Nombre de la acción.
+	 * @param int              $max_requests Límite de peticiones.
+	 * @param int              $window       Ventana de tiempo.
+	 *
+	 * @return bool|\WP_Error
+	 */
+	protected function is_public_request_safe( $request, $action, $max_requests = 10, $window = 60 ) {
+		// 1. Validar Origen (Referer o Origin)
+		$referer = $request->get_header( 'referer' );
+		$origin  = $request->get_header( 'origin' );
+		$site_url = site_url();
+
+		$is_valid_origin = false;
+		if ( ! empty( $referer ) && strpos( $referer, $site_url ) !== false ) {
+			$is_valid_origin = true;
+		} elseif ( ! empty( $origin ) && strpos( $origin, $site_url ) !== false ) {
+			$is_valid_origin = true;
+		}
+
+		if ( ! $is_valid_origin ) {
+			return new \WP_Error(
+				'rest_forbidden_origin',
+				__( 'Origen de petición no permitido.', 'poeticsoft-heart' ),
+				[ 'status' => 403 ]
+			);
+		}
+
+		// 2. Aplicar Rate Limiting
+		return Rate_Limiter::check_limit( $action, $max_requests, $window );
 	}
 }

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit34708dfd56e491a87c273d515a9c702d
+class ComposerStaticInitf889ca18115f5e10db109a1830727c0a
 {
     public static $prefixLengthsPsr4 = array (
         'P' =>
@@ -22,14 +22,18 @@ class ComposerStaticInit34708dfd56e491a87c273d515a9c702d
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Poeticsoft\\Heart\\AICore\\AI_Manager' => __DIR__ . '/../..' . '/classes/class-ai-manager.php',
+        'Poeticsoft\\Heart\\AICore\\Providers\\AI_Provider_Interface' => __DIR__ . '/../..' . '/classes/providers/interface-ai-provider.php',
+        'Poeticsoft\\Heart\\AICore\\Providers\\Gemini_Provider' => __DIR__ . '/../..' . '/classes/providers/class-gemini-provider.php',
+        'Poeticsoft\\Heart\\AICore\\Store_Manager' => __DIR__ . '/../..' . '/classes/class-store-manager.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit34708dfd56e491a87c273d515a9c702d::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit34708dfd56e491a87c273d515a9c702d::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit34708dfd56e491a87c273d515a9c702d::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitf889ca18115f5e10db109a1830727c0a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitf889ca18115f5e10db109a1830727c0a::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitf889ca18115f5e10db109a1830727c0a::$classMap;
 
         }, null, ClassLoader::class);
     }

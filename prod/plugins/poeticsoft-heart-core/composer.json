@@ -9,6 +9,9 @@
         }
     },
     "require": {
-        "league/commonmark": "^2.5"
+        "league/commonmark": "^2.5",
+        "google-gemini-php/client": "^2.7",
+        "guzzlehttp/guzzle": "^7.10",
+        "guzzlehttp/psr7": "^2.9"
     }
 }

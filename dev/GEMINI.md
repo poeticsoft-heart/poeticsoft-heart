@@ -3,28 +3,16 @@
 Guía técnica para el desarrollo de componentes React y compilación de assets para el ecosistema Poeticsoft Heart.
 
 ## Toolchain
-- **Bundler:** Vite 5.
-- **Transpilación:** React (JSX), SCSS.
-- **Configuración:** `dev/vite.config.js`.
+- **Bundler:** Webpack 5.
+- **Transpilación:** React (JSX/Babel), SCSS (Dart Sass).
+- **Configuración:** `dev/webpack.config.js`.
 
-## Desarrollo de Bloques
+## Desarrollo de Bloques (Webpack)
 Los bloques se desarrollan en `dev/src/blocks/[nombre-del-bloque]/`.
 
-### Estructura de Archivos
-- `index.jsx`: Registro del bloque en el cliente.
-- `edit.jsx`: Interfaz de usuario en el editor (React).
-- `view.js`: Lógica interactiva en el frontend (opcional).
-- `edit.scss`: Estilos del editor.
-- `view.scss`: Estilos del frontend.
-
-### Scripts de Compilación
-Se utiliza una variable de entorno para definir el objetivo de la compilación:
-- `npm run build --target=block-base`: Compila el bloque base.
-- `npm run start --target=block-base`: Modo watch/dev.
-
-## Destino de Producción
-Vite está configurado para emitir los archivos compilados directamente en la subcarpeta `build/` del bloque correspondiente dentro del plugin de bloques:
-`prod/plugins/poeticsoft-heart-blocksbase/blocks/[nombre-bloque]/build/`
+El sistema de compilación ha migrado de Vite a **Webpack**.
+Para entender el flujo completo de creación, scaffolding y compilación de bloques, **es obligatorio leer la documentación técnica en**:
+`dev/src/blocks/BLOCK_DEVELOPMENT.md`
 
 ## Convenciones de UI
 - Utilizar los **Design Tokens** definidos en el `theme.json` mediante variables CSS de WordPress (`var(--wp--preset--*)`).

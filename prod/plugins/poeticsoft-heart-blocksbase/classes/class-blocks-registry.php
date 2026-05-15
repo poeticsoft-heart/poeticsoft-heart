@@ -53,26 +53,20 @@ class Blocks_Registry {
 	public function register_blocks() {
 		$blocks_dir = plugin_dir_path( dirname( __FILE__ ) ) . 'blocks/';
 
-		error_log( 'PSH Debug: Scanning blocks dir: ' . $blocks_dir );
-
 		if ( ! is_dir( $blocks_dir ) ) {
 			error_log( 'Plugin Error: Blocks directory not found in ' . $blocks_dir );
 			return;
 		}
 
-		// Escaneamos el directorio de bloques para registrarlos automáticamente.
 		$blocks = array_diff( scandir( $blocks_dir ), [ '..', '.' ] );
 
 		foreach ( $blocks as $block_name ) {
 			$block_path = $blocks_dir . $block_name;
 			if ( is_dir( $block_path ) && file_exists( $block_path . '/block.json' ) ) {
-				error_log( 'PSH Debug: Attempting to register block from path: ' . $block_path );
 				$result = register_block_type( $block_path );
 				if ( is_wp_error( $result ) ) {
 					error_log( 'Plugin Error: Failed to register block ' . $block_name . ': ' . $result->get_error_message() );
-				} else {
-					error_log( 'PSH Debug: Successfully registered block: ' . $block_name );
-				}
+				} 
 			}
 		}
 	}

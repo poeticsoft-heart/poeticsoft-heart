@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "newblock": "node ./scripts/newblock blockbase plugins blocksbase",
     "blockbase": "webpack --env block-blocks/blockbase-plugins-blocksbase-blocks/blockbase",
     "voiceinterface": "webpack --env block-voiceinterface"
   },
@@ -20,6 +21,8 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "dotenv": "^17.4.2"
+    "dotenv": "^17.4.2",
+    "dotenv-expand": "^13.0.0",
+    "uuid": "^14.0.0"
   }
 }

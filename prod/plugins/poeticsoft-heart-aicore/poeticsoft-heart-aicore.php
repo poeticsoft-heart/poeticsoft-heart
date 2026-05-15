@@ -15,10 +15,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// Carga del Autoloader de CORE (Dependencias compartidas)
+$core_autoload = dirname( __DIR__ ) . '/poeticsoft-heart-core/vendor/autoload.php';
+if ( file_exists( $core_autoload ) ) {
+	require_once $core_autoload;
+}
+
+// Carga del Autoloader interno del plugin
 if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require_once __DIR__ . '/vendor/autoload.php';
 }
 
 add_action( 'init', function() {
-	// Aquí se inicializará el AI_Manager
+	global $psh_ai_manager;
+	$psh_ai_manager = new AI_Manager();
 } );

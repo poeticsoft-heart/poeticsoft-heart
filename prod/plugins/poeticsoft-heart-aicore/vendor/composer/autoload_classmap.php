@@ -7,4 +7,8 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'Poeticsoft\\Heart\\AICore\\AI_Manager' => $baseDir . '/classes/class-ai-manager.php',
+    'Poeticsoft\\Heart\\AICore\\Providers\\AI_Provider_Interface' => $baseDir . '/classes/providers/interface-ai-provider.php',
+    'Poeticsoft\\Heart\\AICore\\Providers\\Gemini_Provider' => $baseDir . '/classes/providers/class-gemini-provider.php',
+    'Poeticsoft\\Heart\\AICore\\Store_Manager' => $baseDir . '/classes/class-store-manager.php',
 );
