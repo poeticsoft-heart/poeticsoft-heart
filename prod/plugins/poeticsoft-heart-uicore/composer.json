@@ -1,0 +1,14 @@
+{
+    "name": "poeticsoft/heart-uicore",
+    "description": "Global UI assets and components for Poeticsoft Heart ecosystem",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "Poeticsoft\\Heart\\UICore\\": "classes/"
+        },
+        "classmap": [
+            "classes/"
+        ]
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "poeticsoft-heart/voiceinterface",
+    "version": "1.0.1",
+    "title": "Voice Interface",
+    "category": "poeticsoft-heart-base",
+    "icon": "microphone",
+    "description": "Sophisticated voice interface orb with real-time transcription.",
+    "attributes": {
+        "placeholderText": {
+            "type": "string",
+            "default": "Haz clic en el orbe para empezar a hablar"
+        }
+    },
+    "supports": {
+        "html": false,
+        "align": ["wide", "full"],
+        "spacing": {
+            "margin": true,
+            "padding": true
+        }
+    },
+    "textdomain": "poeticsoft-heart",
+    "editorScript": "file:./build/edit.js",
+    "editorStyle": "file:./build/edit.css",
+    "viewScript": "file:./build/view.js",
+    "style": "file:./build/view.css",
+    "render": "file:./render.php"
+}

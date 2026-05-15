@@ -1,0 +1,14 @@
+{
+    "name": "poeticsoft/heart-credentials",
+    "description": "Credentials and settings management for Poeticsoft Heart ecosystem",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "Poeticsoft\\Heart\\Credentials\\": "classes/"
+        },
+        "classmap": [
+            "classes/"
+        ]
+    }
+}

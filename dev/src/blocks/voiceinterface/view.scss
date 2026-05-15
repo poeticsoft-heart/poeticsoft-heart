@@ -1,0 +1,98 @@
+.psh-voiceinterface-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 1rem;
+    gap: 1.5rem;
+    text-align: center;
+
+    .psh-orb {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: var(--wp--preset--color--contrast, #111);
+        box-shadow: var(--wp--preset--shadow--deep);
+        cursor: pointer;
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.5s ease;
+        position: relative;
+        z-index: 2;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+
+        &:active {
+            transform: scale(0.95);
+        }
+    }
+
+    .psh-voice-status {
+        font-family: var(--wp--preset--font-family--body);
+        font-size: var(--wp--preset--font-size--step-0);
+        color: var(--wp--preset--color--contrast);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .psh-voice-transcript {
+        font-family: var(--wp--preset--font-family--body);
+        font-size: var(--wp--preset--font-size--step-1);
+        color: var(--wp--preset--color--contrast-muted);
+        min-height: 1.6em;
+        max-width: 600px;
+        line-height: 1.4;
+        font-style: italic;
+        transition: all 0.3s ease;
+    }
+
+    // Estados
+    &.is-listening {
+        .psh-orb {
+            animation: psh-orb-pulse 1.5s infinite;
+            background: var(--wp--preset--color--contrast);
+        }
+        .psh-voice-status {
+            color: #d00; // Un rojo sutil para indicar grabación
+        }
+    }
+
+    &.is-processing {
+        .psh-orb {
+            animation: psh-orb-processing 2s infinite linear;
+            background: var(--wp--preset--color--contrast-muted);
+        }
+    }
+}
+
+@keyframes psh-orb-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(17, 17, 17, 0.4), var(--wp--preset--shadow--deep);
+        transform: scale(1);
+    }
+    70% {
+        box-shadow: 0 0 0 30px rgba(17, 17, 17, 0), var(--wp--preset--shadow--deep);
+        transform: scale(1.05);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(17, 17, 17, 0), var(--wp--preset--shadow--deep);
+        transform: scale(1);
+    }
+}
+
+@keyframes psh-orb-processing {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

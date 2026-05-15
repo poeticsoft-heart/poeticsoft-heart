@@ -1,0 +1,23 @@
+/*!*************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/blocks/blockbase/view.scss ***!
+  \*************************************************************************************************************************/
+.wp-block-poeticsoft-heart-blockbase {
+  background: #0073aa;
+  color: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  font-weight: bold;
+}
+.wp-block-poeticsoft-heart-blockbase .psh-block-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.wp-block-poeticsoft-heart-blockbase .psh-block-content .psh-icon {
+  font-size: 1.5rem;
+}
+.wp-block-poeticsoft-heart-blockbase .psh-block-content p {
+  margin: 0;
+}
+
+/*# sourceMappingURL=view.css.map*/

@@ -1,0 +1,13 @@
+{
+    "name": "poeticsoft/heart-theme",
+    "description": "Theme for Poeticsoft Heart",
+    "autoload": {
+        "psr-4": {
+            "Poeticsoft\\Heart\\": "classes/"
+        },
+        "classmap": [
+            "classes/"
+        ]
+    },
+    "require": {}
+}
