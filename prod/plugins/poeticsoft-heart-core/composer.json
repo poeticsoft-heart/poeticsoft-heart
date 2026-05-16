@@ -12,6 +12,8 @@
         "league/commonmark": "^2.5",
         "google-gemini-php/client": "^2.7",
         "guzzlehttp/guzzle": "^7.10",
-        "guzzlehttp/psr7": "^2.9"
+        "guzzlehttp/psr7": "^2.9",
+        "smalot/pdfparser": "^2.12",
+        "phpoffice/phpword": "^1.4"
     }
 }

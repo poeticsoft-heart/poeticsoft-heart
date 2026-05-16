@@ -25,6 +25,7 @@ class ComposerStaticInit857e00445390b0363796f8410b495a35
         'Poeticsoft\\Heart\\Credentials\\Admin\\Admin_Menu' => __DIR__ . '/../..' . '/classes/admin/class-admin-menu.php',
         'Poeticsoft\\Heart\\Credentials\\Admin\\Pages\\Page_AI' => __DIR__ . '/../..' . '/classes/admin/pages/class-page-ai.php',
         'Poeticsoft\\Heart\\Credentials\\Admin\\Pages\\Page_Communications' => __DIR__ . '/../..' . '/classes/admin/pages/class-page-communications.php',
+        'Poeticsoft\\Heart\\Credentials\\Admin\\Pages\\Page_Instagram' => __DIR__ . '/../..' . '/classes/admin/pages/class-page-instagram.php',
         'Poeticsoft\\Heart\\Credentials\\Admin\\Settings_Page_Base' => __DIR__ . '/../..' . '/classes/admin/class-settings-page-base.php',
         'Poeticsoft\\Heart\\Credentials\\Credentials_Manager' => __DIR__ . '/../..' . '/classes/class-credentials-manager.php',
         'Poeticsoft\\Heart\\Credentials\\Integrations\\SMTP_Configurator' => __DIR__ . '/../..' . '/classes/integrations/class-smtp-configurator.php',

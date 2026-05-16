@@ -1,6 +1,9 @@
 <?php
 namespace Poeticsoft\Heart\AICore;
 
+/**
+ * Gestor de almacenamiento de prompts y contextos basados en archivos Markdown.
+ */
 class Store_Manager {
     private $base_path;
 
@@ -9,7 +12,7 @@ class Store_Manager {
     }
 
     /**
-     * Obtiene el contenido de todas las partes en una sección específica.
+     * Obtiene el contenido de todas las partes en una sección específica (contexto).
      */
     public function get_section_parts( $section ) {
         $section_path = $this->base_path . $section . '/';
@@ -39,5 +42,12 @@ class Store_Manager {
             return file_get_contents( $file_path );
         }
         return '';
+    }
+
+    /**
+     * Obtiene un prompt específico de la carpeta 'prompt/'.
+     */
+    public function get_prompt( $name ) {
+        return $this->get_part( 'prompt', $name );
     }
 }

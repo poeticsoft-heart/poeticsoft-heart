@@ -10,6 +10,7 @@ return array(
     'Poeticsoft\\Heart\\Credentials\\Admin\\Admin_Menu' => $baseDir . '/classes/admin/class-admin-menu.php',
     'Poeticsoft\\Heart\\Credentials\\Admin\\Pages\\Page_AI' => $baseDir . '/classes/admin/pages/class-page-ai.php',
     'Poeticsoft\\Heart\\Credentials\\Admin\\Pages\\Page_Communications' => $baseDir . '/classes/admin/pages/class-page-communications.php',
+    'Poeticsoft\\Heart\\Credentials\\Admin\\Pages\\Page_Instagram' => $baseDir . '/classes/admin/pages/class-page-instagram.php',
     'Poeticsoft\\Heart\\Credentials\\Admin\\Settings_Page_Base' => $baseDir . '/classes/admin/class-settings-page-base.php',
     'Poeticsoft\\Heart\\Credentials\\Credentials_Manager' => $baseDir . '/classes/class-credentials-manager.php',
     'Poeticsoft\\Heart\\Credentials\\Integrations\\SMTP_Configurator' => $baseDir . '/classes/integrations/class-smtp-configurator.php',

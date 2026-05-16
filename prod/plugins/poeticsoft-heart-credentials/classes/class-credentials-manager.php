@@ -10,6 +10,7 @@ namespace Poeticsoft\Heart\Credentials;
 use Poeticsoft\Heart\Credentials\Admin\Admin_Menu;
 use Poeticsoft\Heart\Credentials\Admin\Pages\Page_Communications;
 use Poeticsoft\Heart\Credentials\Admin\Pages\Page_AI;
+use Poeticsoft\Heart\Credentials\Admin\Pages\Page_Instagram;
 use Poeticsoft\Heart\Credentials\Integrations\SMTP_Configurator;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -36,6 +37,7 @@ class Credentials_Manager {
 		new Admin_Menu();
 		new Page_Communications();
 		new Page_AI();
+		new Page_Instagram();
 	}
 
 	/**

@@ -33,8 +33,14 @@ Ecosistema de WordPress compuesto por múltiples aplicaciones, bloques de Gutenb
 
 ### 4. Infraestructura
 - **Ruta WordPress:** `/var/www/poeticsoft`.
+- **Modo de Operación:** WordPress **Multisite** (Red de Sitios). 
+    - Las opciones globales deben gestionarse con `get_site_option` / `update_site_option`.
+    - Los límites de subida están controlados por la opción de red `fileupload_maxk` (actualmente configurada a **1024MB**).
+- **Límites de Sistema (Configurados):**
+    - PHP-FPM / Nginx `client_max_body_size`: **1024M**.
+    - PHP `memory_limit`: **512M**.
+    - PHP `max_execution_time`: **300s**.
 - **Sincronización:** Los directorios en `prod/` están enlazados simbólicamente en `wp-content/`.
-- **Requisitos:** El sistema cuenta con `php-mbstring`, `php-curl`, `unzip`, `zip` y `git` instalados para el correcto funcionamiento de Composer.
 
 ### 5. Reglas de Interacción (AI Agent)
 - **Control de Bucles y Tokens:** Si una tarea requiere más de dos intentos fallidos para ser resuelta (bucles de compilación, errores de configuración, etc.), el agente debe detenerse inmediatamente, explicar el problema y esperar instrucciones del usuario. Esto es estrictamente para evitar el gasto innecesario de tokens y prevenir bucles incontrolados.

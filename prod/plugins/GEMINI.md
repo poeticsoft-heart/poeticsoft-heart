@@ -37,7 +37,9 @@ Este documento describe la responsabilidad de cada módulo y el sistema de integ
 1. **Añadir Clase:** Crear archivo en `classes/` del plugin correspondiente.
 2. **Namespace:** Asegurar que coincida con la ruta PSR-4 del `composer.json`.
 3. **Autoload:** Ejecutar `composer dump-autoload -o --no-interaction`.
-4. **API:** Si la lógica debe ser expuesta, registrar el endpoint en `heart-api/classes/endpoints/`.
+4. **Sincronización:** Si es un plugin nuevo, crear el enlace simbólico en WordPress:
+   `ln -s /home/heart/prod/plugins/[nombre-plugin] /var/www/poeticsoft/wp-content/plugins/`
+5. **API:** Si la lógica debe ser expuesta, registrar el endpoint en `heart-api/classes/endpoints/`.
 
 ---
 *Nota: La comunicación entre plugins debe ser desacoplada siempre que sea posible, utilizando el Core como puente de dependencias.*

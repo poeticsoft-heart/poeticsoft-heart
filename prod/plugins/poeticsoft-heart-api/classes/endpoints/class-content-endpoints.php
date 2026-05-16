@@ -8,7 +8,7 @@
 namespace Poeticsoft\Heart\API\Endpoints;
 
 use Poeticsoft\Heart\API\Endpoints\Endpoint_Base;
-use Poeticsoft\Heart\ContentArchitect\Block_Converter;
+use Poeticsoft\Heart\Babel\Block_Converter;
 use WP_REST_Request;
 use WP_REST_Response;
 
@@ -92,6 +92,66 @@ class Content_Endpoints extends Endpoint_Base {
 				],
 			]
 		);
+
+		// Endpoint 3: Optimizar Prompt con IA
+		register_rest_route(
+			$this->namespace,
+			'/' . $this->rest_base . '/optimize-prompt',
+			[
+				[
+					'methods'             => 'POST',
+					'callback'            => [ $this, 'optimize_prompt' ],
+					'permission_callback' => [ $this, 'check_permission' ],
+					'args'                => [
+						'prompt' => [
+							'required'          => true,
+							'type'              => 'string',
+							'description'       => 'El prompt original a optimizar.',
+							'sanitize_callback' => 'wp_kses_post',
+						],
+					],
+				],
+			]
+		);
+	}
+
+	/**
+	 * Callback para optimizar un prompt usando IA.
+	 */
+	public function optimize_prompt( WP_REST_Request $request ) {
+		$original_prompt = $request->get_param( 'prompt' );
+
+		if ( ! class_exists( 'Poeticsoft\Heart\AICore\AI_Manager' ) ) {
+			return $this->response( false, 'El plugin AICore no está activo.', [], 500 );
+		}
+
+		if ( ! class_exists( 'Poeticsoft\Heart\Babel\Block_Converter' ) ) {
+			return $this->response( false, 'El plugin Content Architect no está activo.', [], 500 );
+		}
+
+		// 1. Obtener optimización de la IA
+		try {
+			$ai_manager = new \Poeticsoft\Heart\AICore\AI_Manager();
+			// Cargar el prompt de sistema específico
+			$ai_manager->set_system_instruction( 'PROMPT-OPTIMIZER' );
+			
+			$optimized_markdown = $ai_manager->generate_content( $original_prompt );
+
+			if ( empty( $optimized_markdown ) ) {
+				return $this->response( false, 'La IA no devolvió ningún contenido.', [], 500 );
+			}
+
+			// 2. Convertir Markdown a Bloques de Gutenberg
+			$converter = new Block_Converter();
+			$blocks_html = $converter->convert_markdown_to_blocks( $optimized_markdown );
+
+			return $this->response( true, 'Prompt optimizado correctamente.', [
+				'html' => $blocks_html,
+			] );
+
+		} catch ( \Exception $e ) {
+			return $this->response( false, 'Error en el proceso de optimización: ' . $e->getMessage(), [], 500 );
+		}
 	}
 
 	/**
@@ -100,7 +160,7 @@ class Content_Endpoints extends Endpoint_Base {
 	public function convert_content( WP_REST_Request $request ) {
 		$markdown = $request->get_param( 'markdown' );
 
-		if ( ! class_exists( 'Poeticsoft\Heart\ContentArchitect\Block_Converter' ) ) {
+		if ( ! class_exists( 'Poeticsoft\Heart\Babel\Block_Converter' ) ) {
 			return new WP_REST_Response( [
 				'success' => false,
 				'message' => 'El plugin Content Architect no está activo o la clase de conversión no existe.',
@@ -127,7 +187,7 @@ class Content_Endpoints extends Endpoint_Base {
 		$post_type   = $request->get_param( 'post_type' );
 		$post_status = $request->get_param( 'post_status' );
 
-		if ( ! class_exists( 'Poeticsoft\Heart\ContentArchitect\Block_Converter' ) ) {
+		if ( ! class_exists( 'Poeticsoft\Heart\Babel\Block_Converter' ) ) {
 			return $this->response( false, 'El plugin Content Architect no está activo.', [], 500 );
 		}
 
