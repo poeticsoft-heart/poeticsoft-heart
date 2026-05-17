@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "newblock": "node ./scripts/newblock blockbase plugins blocksbase",
-    "blockbase": "webpack --env block-blocks/blockbase-plugins-blocksbase-blocks/blockbase",
-    "voiceinterface": "webpack --env block-voiceinterface"
+    "blockbase": "webpack --env block-blockbase",
+    "voiceinterface": "webpack --env block-voiceinterface",
+    "voicespeaker": "webpack --env block-voicespeaker"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",

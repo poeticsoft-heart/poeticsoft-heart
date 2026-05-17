@@ -1,45 +1,53 @@
-# Arquitectura de Plugins: Poeticsoft Heart
+# Arquitectura de Plugin: Poeticsoft Heart
 
-Este documento describe la responsabilidad de cada módulo y el sistema de integración unificado.
+Este documento describe la arquitectura de plugins
 
-## Módulos del Sistema
+## Estructura de Plugins
+El ecosistema Poeticsoft Heart opera bajo una arquitectura de plugin único. Toda la lógica de negocio, servicios, API, bloques y telemetría reside en:
 
-### 1. `poeticsoft-heart-core` (Dependency Manager)
-- **Misión:** Proveer librerías de terceros a todo el ecosistema.
-- **Librerías actuales:** `league/commonmark`.
-- **Uso:** Otros plugins cargan este autoloader mediante:
-  `require_once dirname(__DIR__) . '/poeticsoft-heart-core/vendor/autoload.php';`
+- **`poeticsoft-heart/`**: Plugin principal que centraliza todas las funcionalidades.
 
-### 2. `poeticsoft-heart-api` (REST API Unificada)
-- **Namespace:** `psh/v1`.
-- **Arquitectura:** Basada en controladores que heredan de `Endpoint_Base`.
-- **Endpoints Clave:**
-  - `POST /content/convert`: Convierte Markdown a bloques (JSON).
-  - `POST /content/create`: Genera una página real en WP a partir de Markdown.
+## Arquitectura Interna del Plugin `poeticsoft-heart`
 
-### 3. `poeticsoft-heart-contentarchitect` (Data Engine)
-- **Misión:** Transformar datos en estructuras de WordPress.
-- **Componentes:** `Block_Converter` (Motor de conversión Markdown -> Bloques Gutenberg).
-- **Integración:** Utiliza `DOMDocument` para mapear etiquetas HTML a comentarios de bloques core.
+La lógica de negocio está organizada bajo el namespace `Poeticsoft\Heart\` en el directorio `classes/`. A continuación se detalla su composición interna:
 
-### 4. `poeticsoft-heart-credentials` (Admin & Config)
-- **Misión:** Centralizar API Keys y ajustes SMTP.
-- **Componentes:** `SMTP_Configurator` (Integración con PHPMailer).
+### Módulos de Clases (`/classes/`)
 
-### 5. `poeticsoft-heart-blocksbase` (Gutenberg Registry)
-- **Misión:** Escaneo dinámico y registro de bloques compilados.
-- **Categoría:** Registra la categoría global `poeticsoft-heartbase`.
+- **AI (`/classes/AI/`)**:
+    - `Gemini.php`: Cliente para el modelo Gemini (via SDK oficial).
+    - `Main.php`: Orquestador de servicios de IA.
+    - `Provider.php`: Interfaz/Base para proveedores de IA.
 
-### 6. `poeticsoft-heart-telemetry` & `poeticsoft-heart-aicore`
-- **Misión:** Logging avanzado e integración con proveedores de IA (OpenAI, Anthropic, Gemini).
+- **API (`/classes/API/`)**:
+    - `Main.php`: Registro y gestión de endpoints REST.
+    - `Endpoint.php`: Clase base para controladores.
+    - `Endpoints/`: Controladores para `Content`, `Mail`, `Prompts`, `System`, y `Voice`.
+    - `Security/`: Implementación de `RateLimiter.php` para protección de API.
 
-## Flujo de Desarrollo Backend
-1. **Añadir Clase:** Crear archivo en `classes/` del plugin correspondiente.
-2. **Namespace:** Asegurar que coincida con la ruta PSR-4 del `composer.json`.
-3. **Autoload:** Ejecutar `composer dump-autoload -o --no-interaction`.
-4. **Sincronización:** Si es un plugin nuevo, crear el enlace simbólico en WordPress:
-   `ln -s /home/heart/prod/plugins/[nombre-plugin] /var/www/poeticsoft/wp-content/plugins/`
-5. **API:** Si la lógica debe ser expuesta, registrar el endpoint en `heart-api/classes/endpoints/`.
+- **Blocks (`/classes/Blocks/`)**:
+    - `Main.php`: Lógica de registro dinámico para bloques de Gutenberg.
+
+- **Credentials (`/classes/Credentials/`)**:
+    - `Admin.php`: Gestión de ajustes administrativos.
+    - `Main.php`: Orquestador de credenciales.
+    - `Page.php`: Clase base para páginas de configuración.
+    - `Integrations/`: Lógica específica como `SMTP.php`.
+    - `Pages/`: Implementación de interfaces para `AI.php`, `Communications.php` e `Instagram.php`.
+
+- **Prompts (`/classes/Prompts/`)**:
+    - `Main.php`: Gestor central de prompts.
+    - `Markdown.php`: Lógica de procesamiento y transformación de Markdown.
+    - `Optimizer.php`: Motor para mejorar y ajustar las interacciones de los prompts.
+
+- **Telemetry (`/classes/Telemetry/`)**:
+    - `Main.php`: Sistema de monitoreo y logging de eventos.
+
+## Estándares de Desarrollo
+1. **Namespace:** Toda clase debe seguir `Poeticsoft\Heart\[Modulo]`.
+2. **Dependencias:** Las librerías de terceros se gestionan mediante Composer en el directorio `vendor/` del propio plugin.
+3. **Autoloading:** Tras crear nuevas clases, es obligatorio ejecutar:
+   `composer dump-autoload -o --no-interaction`
+4. **Desacoplamiento:** Aunque el plugin es centralizado, se debe mantener la separación de responsabilidades mediante inyección de dependencias y el uso de los módulos de clases definidos.
 
 ---
-*Nota: La comunicación entre plugins debe ser desacoplada siempre que sea posible, utilizando el Core como puente de dependencias.*
+*Nota: Este directorio contiene exclusivamente el plugin `poeticsoft-heart`. Cualquier adición futura de plugins independientes debe seguir este estándar de documentación.*
